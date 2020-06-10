@@ -46,7 +46,7 @@ resource "aws_instance" "task1" {
   ami           = "ami-0fd7b184f79e8e5af"
   
   instance_type = "t2.micro"
-  key_name      = "Mainkey"
+  key_name      =  "Mainkey"
   security_groups = ["wizard-1"]
 	
   tags = {
@@ -55,13 +55,13 @@ resource "aws_instance" "task1" {
   user_data = <<-EOF
 	         #!bin/bash
 		 yum install httpd -y
+		 yum install git -y
+		 git clone https://github.com/Harsh-Gupta9897/Task1.git
+		 cd Task1
+		 cp index.html /var/www/html/index.html
 		 systemctl start httpd
   EOF
-		 
-  provisioner "file" {
-    source      = "index.html"
-    destination = "/var/www/html/index.html"
-  }
+
 }
 
 
@@ -80,4 +80,7 @@ resource "aws_volume_attachment" "ebs_attach" {
   instance_id = "${aws_instance.task1.id}"
 }
 
+output  "my_sec_public_ip" {
+	value = aws_instance.task1.public_ip
+}
 
