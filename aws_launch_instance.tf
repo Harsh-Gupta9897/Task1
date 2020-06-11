@@ -46,7 +46,7 @@ resource "aws_instance" "task1" {
   ami           = "ami-0fd7b184f79e8e5af"
   
   instance_type = "t2.micro"
-  key_name      =  "Mainkey"
+  key_name      =  "task-one"
   security_groups = ["wizard-1"]
 	
   tags = {
